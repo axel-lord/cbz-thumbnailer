@@ -1,0 +1,45 @@
+[workspace]
+members = [
+	".",
+	"cbz-thumbnailer-lib",
+]
+resolver = "2"
+default-members = ["."]
+
+[workspace.package]
+edition = "2024"
+authors = ["Axel Lord"]
+license = "MIT OR Apache-2.0"
+
+[workspace.dependencies]
+cbz-thumbnailer-lib = { path = "cbz-thumbnailer-lib" }
+clap = "4.5.57"
+color-eyre = "0.6.5"
+env_logger = "0.11.8"
+image = "0.25.9"
+log = "0.4.29"
+tap = "1.0.1"
+thiserror = "2.0.18"
+zip = "7.4.0"
+
+[profile.release]
+strip = "debuginfo"
+opt-level = "z"
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+
+[package]
+name = "cbz-thumbnailer"
+version = "0.1.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+clap = { workspace = true, features = ["derive"] }
+color-eyre.workspace = true
+env_logger.workspace = true
+log.workspace = true
+tap.workspace = true
+cbz-thumbnailer-lib.workspace = true

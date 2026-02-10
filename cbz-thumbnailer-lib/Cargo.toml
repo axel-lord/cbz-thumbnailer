@@ -1,0 +1,13 @@
+[package]
+name = "cbz-thumbnailer-lib"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+image.workspace = true
+log.workspace = true
+tap.workspace = true
+thiserror.workspace = true
+zip.workspace = true
