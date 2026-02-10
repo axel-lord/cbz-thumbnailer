@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=cbz-thumbnailer
+Exec=cbz-thumbnailer %i %o %s
+MimeType=application/x-cbz;application/vnd.comicbook+zip;
