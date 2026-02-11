@@ -1,10 +1,10 @@
 [workspace]
 members = [
-	".",
+	"cbz-thumbnailer",
 	"cbz-thumbnailer-lib",
 ]
+default-members = ["cbz-thumbnailer"]
 resolver = "2"
-default-members = ["."]
 
 [workspace.package]
 edition = "2024"
@@ -29,17 +29,3 @@ lto = "fat"
 codegen-units = 1
 panic = "abort"
 
-[package]
-name = "cbz-thumbnailer"
-version = "0.1.0"
-edition.workspace = true
-authors.workspace = true
-license.workspace = true
-
-[dependencies]
-clap = { workspace = true, features = ["derive"] }
-color-eyre.workspace = true
-env_logger.workspace = true
-log.workspace = true
-tap.workspace = true
-cbz-thumbnailer-lib.workspace = true
