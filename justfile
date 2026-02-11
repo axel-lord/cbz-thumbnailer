@@ -28,7 +28,7 @@ autoinherit:
 	cargo autoinherit --prefer-simple-dotted
 
 install:
-	cargo +nightly install --path . -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
+	cargo +nightly install --path {{crate}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
 
 build *EXTRA:
 	cargo +nightly build --release -p {{crate}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" {{EXTRA}}
