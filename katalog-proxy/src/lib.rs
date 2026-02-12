@@ -121,6 +121,9 @@ impl Cli {
             catalog,
             skip_hash,
         } = self;
+        if let Some(parent) = proxy_file.parent() {
+            _ = ::std::env::set_current_dir(parent);
+        }
         if let Some(catalog) = catalog {
             let name_hash = skip_hash.else_some(|| false, || NameHash::from_katalog(&catalog));
 

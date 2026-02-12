@@ -45,6 +45,10 @@ impl Cli {
                 },
         } = self;
 
+        if let Some(parent) = input.parent() {
+            _ = ::std::env::set_current_dir(parent);
+        }
+
         let file = File::open(&input)
             .map_err(|err| eyre!("could not open {input:?}\n{err}"))?
             .pipe(BufReader::new);
