@@ -12,3 +12,4 @@ env_logger.workspace = true
 log.workspace = true
 tap.workspace = true
 cbz-thumbnailer-lib.workspace = true
+katalog-proxy.workspace = true

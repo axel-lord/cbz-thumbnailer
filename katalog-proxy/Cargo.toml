@@ -9,6 +9,8 @@ license.workspace = true
 clap = { workspace = true, features = ["derive"] }
 color-eyre.workspace = true
 env_logger.workspace = true
-katalog-proxy-lib = { version = "0.1.0", path = "../katalog-proxy-lib" }
+katalog-proxy-lib.workspace = true
 log.workspace = true
-open = "5.3.3"
+tap.workspace = true
+open.workspace = true
+either.workspace = true

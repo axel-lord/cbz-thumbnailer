@@ -7,10 +7,10 @@ license.workspace = true
 
 [dependencies]
 log.workspace = true
-serde = { version = "1.0.228", features = ["derive"] }
-serde_bytes = "0.11.19"
-sha2 = "0.10.9"
+serde = { workspace = true, features = ["derive"] }
+serde_bytes.workspace = true
+sha2.workspace = true
 tap.workspace = true
 thiserror.workspace = true
-toml = "1.0.0"
-walkdir = "2.5.0"
+toml.workspace = true
+walkdir.workspace = true

@@ -278,6 +278,7 @@ dependencies = [
  "clap",
  "color-eyre",
  "env_logger",
+ "katalog-proxy",
  "log",
  "tap",
 ]
@@ -915,10 +916,12 @@ version = "0.1.0"
 dependencies = [
  "clap",
  "color-eyre",
+ "either",
  "env_logger",
  "katalog-proxy-lib",
  "log",
  "open",
+ "tap",
 ]
 
 [[package]]
