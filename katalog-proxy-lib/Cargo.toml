@@ -1,0 +1,16 @@
+[package]
+name = "katalog-proxy-lib"
+version = "0.1.0"
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[dependencies]
+log.workspace = true
+serde = { version = "1.0.228", features = ["derive"] }
+serde_bytes = "0.11.19"
+sha2 = "0.10.9"
+tap.workspace = true
+thiserror.workspace = true
+toml = "1.0.0"
+walkdir = "2.5.0"

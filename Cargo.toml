@@ -2,6 +2,8 @@
 members = [
 	"cbz-thumbnailer",
 	"cbz-thumbnailer-lib",
+	"katalog-proxy",
+	"katalog-proxy-lib",
 ]
 default-members = ["cbz-thumbnailer"]
 resolver = "2"
