@@ -2,6 +2,8 @@
 members = [
 	"cbz-thumbnailer",
 	"cbz-thumbnailer-lib",
+	"katalog-proxy",
+	"katalog-proxy-lib",
 ]
 default-members = ["cbz-thumbnailer"]
 resolver = "2"
@@ -21,6 +23,15 @@ log = "0.4.29"
 tap = "1.0.1"
 thiserror = "2.0.18"
 zip = "7.4.0"
+either = "1.15.0"
+katalog-proxy = { version = "0.1.0", path = "katalog-proxy" }
+katalog-proxy-lib = { version = "0.1.0", path = "katalog-proxy-lib" }
+open = "5.3.3"
+serde = "1.0.228"
+sha2 = "0.10.9"
+toml = "1.0.0"
+walkdir = "2.5.0"
+hex = "0.4.3"
 
 [profile.release]
 strip = "debuginfo"
