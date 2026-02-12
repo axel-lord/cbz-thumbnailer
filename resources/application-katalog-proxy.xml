@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+	<mime-type type="application/prs.katalog-proxy">
+		<comment>Catalog Proxy Icon</comment>
+		<sub-class-of type="application/toml"/>
+		<icon name="application/toml"/>
+		<magic-deleteall/>
+		<magic>
+			<match type="string" offset="0" value="#katalog-proxy\n"/>
+		</magic>
+		<glob-deleteall/>
+		<glob pattern="*.katalog-proxy"/>
+	</mime-type>
+</mime-info>

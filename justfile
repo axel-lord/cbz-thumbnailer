@@ -1,4 +1,6 @@
 crate := "cbz-thumbnailer"
+cbz_thumbnailer := "cbz-thumbnailer"
+katalog_proxy := "katalog-proxy"
 
 default:
 	just --list
@@ -27,9 +29,15 @@ fmt:
 autoinherit:
 	cargo autoinherit --prefer-simple-dotted
 
-install:
-	cargo +nightly install --path {{crate}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
+install-katalog-proxy:
+	cargo +nightly install --path {{katalog_proxy}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
 
-build *EXTRA:
-	cargo +nightly build --release -p {{crate}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" {{EXTRA}}
+build-katalog-proxy *EXTRA:
+	cargo +nightly build --release -p {{katalog_proxy}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" {{EXTRA}}
+
+install-cbz-thumbnailer:
+	cargo +nightly install --path {{cbz_thumbnailer}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
+
+build-cbz-thumbnailer *EXTRA:
+	cargo +nightly build --release -p {{cbz_thumbnailer}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" {{EXTRA}}
 

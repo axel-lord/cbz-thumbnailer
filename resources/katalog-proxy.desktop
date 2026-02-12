@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=0.1
+Name=Katalog Proxy
+Comment=Open a directory by proxy
+MimeType=application/prs.katalog-proxy
+TryExec=katalog-proxy
+Exec=katalog-proxy %f
