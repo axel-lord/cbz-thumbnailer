@@ -8,9 +8,9 @@ license.workspace = true
 [dependencies]
 clap = { workspace = true, features = ["derive"] }
 color-eyre.workspace = true
+either.workspace = true
 env_logger.workspace = true
 katalog-proxy-lib.workspace = true
 log.workspace = true
-tap.workspace = true
 open.workspace = true
-either.workspace = true
+tap.workspace = true

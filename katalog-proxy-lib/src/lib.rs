@@ -5,7 +5,58 @@ use ::std::{
 
 use ::serde::{Deserialize, Serialize};
 use ::sha2::{Digest, Sha256};
+use ::tap::Pipe;
 use ::walkdir::WalkDir;
+
+/// Wrapper for name hash.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash)]
+pub struct NameHash(pub u64);
+
+impl NameHash {
+    pub fn from_katalog(katalog: &Path) -> Self {
+        WalkDir::new(katalog)
+            .same_file_system(true)
+            .follow_links(false)
+            .sort_by_file_name()
+            .into_iter()
+            .filter_map(|entry| {
+                let entry = entry.ok()?;
+                entry.metadata().ok()?.is_file().then_some(entry)
+            })
+            .fold(Sha256::new(), |hasher, entry| {
+                hasher.chain_update(entry.file_name().as_encoded_bytes())
+            })
+            .finalize()
+            .as_chunks::<8>()
+            .0
+            .iter()
+            .copied()
+            .fold(0u64, |acc, bytes| {
+                u64::from_le_bytes(bytes).wrapping_add(acc)
+            })
+            .pipe(Self)
+    }
+}
+
+impl Serialize for NameHash {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        ::hex::serialize(self.0.to_le_bytes(), serializer)
+    }
+}
+
+impl<'de> Deserialize<'de> for NameHash {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        u64::from_le_bytes(::hex::deserialize(deserializer)?)
+            .pipe(Self)
+            .pipe(Ok)
+    }
+}
 
 /// Contents of katalog proxy file.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -13,30 +64,8 @@ pub struct Contents {
     /// Path to katalog.
     pub katalog: PathBuf,
     /// Hash of filenames in catalog.
-    #[serde(with = "serde_bytes", skip_serializing_if = "Option::is_none", default)]
-    pub name_hash: Option<Vec<u8>>,
-}
-
-/// Calculate name hash for a katalog directory.
-pub fn katalog_name_hash(katalog: &Path) -> Vec<u8> {
-    let hash = WalkDir::new(katalog)
-        .same_file_system(true)
-        .follow_links(false)
-        .sort_by_file_name()
-        .into_iter()
-        .filter_map(|entry| {
-            let entry = entry.ok()?;
-            entry.metadata().ok()?.is_file().then_some(entry)
-        })
-        .fold(Sha256::new(), |hasher, entry| {
-            hasher.chain_update(entry.file_name().as_encoded_bytes())
-        })
-        .finalize();
-
-    let mut output = Vec::with_capacity(hash.len());
-    output.extend_from_slice(&hash);
-
-    output
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub name_hash: Option<NameHash>,
 }
 
 /// Erros which may occur reading content.
