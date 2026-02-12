@@ -1,15 +1,15 @@
 use ::std::{
     collections::BTreeMap,
     ffi::OsStr,
-    io::{BufReader, Read, Seek},
+    io::{Read, Seek},
     os::unix::ffi::OsStrExt,
 };
 
-use ::image::{DynamicImage, ImageReader};
+use ::image::DynamicImage;
 
 /// Reexport of image crate.
 pub use ::image;
-use ::tap::Pipe as _;
+use ::tap::{Pipe, TryConv};
 use ::zip::{ZipArchive, result::ZipError};
 
 /// Errors which may occur opening archive.
@@ -48,7 +48,7 @@ pub fn thumbnail<A: Read + Seek>(
     }
 
     for idx in filenames.into_values() {
-        let data = match file.by_index_seek(idx) {
+        let mut data = match file.by_index(idx) {
             Ok(data) => data,
             Err(err) => {
                 ::log::warn!("could not get file with index {idx} in archive\n{err}");
@@ -56,13 +56,28 @@ pub fn thumbnail<A: Read + Seek>(
             }
         };
 
-        if let Ok(reader) = data
-            .pipe(BufReader::new)
-            .pipe(ImageReader::new)
-            .with_guessed_format()
-            && let Ok(image) = reader.decode()
+        // Probably not an image if compression is greater than by 4.
+        if data
+            .size()
+            .checked_div(data.compressed_size())
+            .unwrap_or(u64::MAX)
+            > 4
         {
-            return Ok(image.thumbnail(width, height));
+            continue;
+        }
+
+        let mut buf = data
+            .size()
+            .try_conv::<usize>()
+            .unwrap_or_default()
+            .pipe(Vec::with_capacity);
+        if let Err(err) = data.read_to_end(&mut buf) {
+            ::log::warn!("could not read file with index {idx} in archive\n{err}");
+            continue;
+        };
+
+        if let Ok(img) = ::image::load_from_memory(&buf) {
+            return Ok(img.thumbnail(width, height));
         };
     }
 

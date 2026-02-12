@@ -1,16 +1,18 @@
 [package]
-name = "cbz-thumbnailer"
+name = "katalog-proxy-thumbnailer"
 version = "0.1.0"
 edition.workspace = true
 authors.workspace = true
 license.workspace = true
 
 [dependencies]
+cbz-thumbnailer-lib.workspace = true
 clap = { workspace = true, features = ["derive"] }
 color-eyre.workspace = true
 env_logger.workspace = true
+image.workspace = true
+katalog-proxy-lib.workspace = true
 log.workspace = true
 tap.workspace = true
-cbz-thumbnailer-lib.workspace = true
-katalog-proxy.workspace = true
 thumbnailer-common.workspace = true
+walkdir.workspace = true

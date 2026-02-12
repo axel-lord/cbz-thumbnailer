@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=katalog-proxy-thumbnailer
+Exec=katalog-proxy-thumbnailer %i %o %s
+MimeType=application/prs.katalog-proxy;

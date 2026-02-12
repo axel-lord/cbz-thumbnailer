@@ -1,6 +1,7 @@
 crate := "cbz-thumbnailer"
 cbz_thumbnailer := "cbz-thumbnailer"
 katalog_proxy := "katalog-proxy"
+katalog_proxy_thumbnailer := "katalog-proxy-thumbnailer"
 
 default:
 	just --list
@@ -25,19 +26,24 @@ docs-min *EXTRA:
 fmt:
 	cargo fmt --all
 
+# Run cargo install for package.
+cargo-install package:
+	cargo +nightly install --path {{package}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
+
+# Run cargo build for package.
+cargo-build package:
+	cargo +nightly build --release -p {{package}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
+
 # Run autoinherit
 autoinherit:
 	cargo autoinherit --prefer-simple-dotted
 
-install-katalog-proxy:
-	cargo +nightly install --path {{katalog_proxy}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
+install: install-katalog-proxy install-cbz-thumbnailer install-katalog-proxy-thumbnailer
 
-build-katalog-proxy *EXTRA:
-	cargo +nightly build --release -p {{katalog_proxy}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" {{EXTRA}}
+install-katalog-proxy: (cargo-install f"{{katalog_proxy}}")
+install-katalog-proxy-thumbnailer: (cargo-install f"{{katalog_proxy_thumbnailer}}")
+install-cbz-thumbnailer: (cargo-install f"{{cbz_thumbnailer}}")
 
-install-cbz-thumbnailer:
-	cargo +nightly install --path {{cbz_thumbnailer}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size"
-
-build-cbz-thumbnailer *EXTRA:
-	cargo +nightly build --release -p {{cbz_thumbnailer}} -Z build-std=std,panic_abort -Z build-std-features="optimize_for_size" {{EXTRA}}
-
+build-katalog-proxy: (cargo-install f"{{katalog_proxy}}")
+build-katalog-proxy-thumbnailer: (cargo-install f"{{katalog_proxy_thumbnailer}}")
+build-cbz-thumbnailer: (cargo-install f"{{cbz_thumbnailer}}")

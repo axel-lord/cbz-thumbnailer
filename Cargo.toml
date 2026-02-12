@@ -3,7 +3,7 @@ members = [
 	"cbz-thumbnailer",
 	"cbz-thumbnailer-lib",
 	"katalog-proxy",
-	"katalog-proxy-lib",
+	"katalog-proxy-lib", "katalog-proxy-thumbnailer", "thumbnailer-common",
 ]
 default-members = ["cbz-thumbnailer"]
 resolver = "2"
@@ -32,6 +32,7 @@ sha2 = "0.10.9"
 toml = "1.0.0"
 walkdir = "2.5.0"
 hex = "0.4.3"
+thumbnailer-common = { version = "0.1.0", path = "thumbnailer-common" }
 
 [profile.release]
 strip = "debuginfo"

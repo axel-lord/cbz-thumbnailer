@@ -281,6 +281,7 @@ dependencies = [
  "katalog-proxy",
  "log",
  "tap",
+ "thumbnailer-common",
 ]
 
 [[package]]
@@ -944,6 +945,22 @@ dependencies = [
  "tap",
  "thiserror",
  "toml",
+ "walkdir",
+]
+
+[[package]]
+name = "katalog-proxy-thumbnailer"
+version = "0.1.0"
+dependencies = [
+ "cbz-thumbnailer-lib",
+ "clap",
+ "color-eyre",
+ "env_logger",
+ "image",
+ "katalog-proxy-lib",
+ "log",
+ "tap",
+ "thumbnailer-common",
  "walkdir",
 ]
 
@@ -1662,6 +1679,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f60246a4944f24f6e018aa17cdeffb7818b76356965d03b07d6a9886e8962185"
 dependencies = [
  "cfg-if",
+]
+
+[[package]]
+name = "thumbnailer-common"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "thiserror",
 ]
 
 [[package]]
