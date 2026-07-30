@@ -15,21 +15,21 @@ license = "MIT OR Apache-2.0"
 
 [workspace.dependencies]
 cbz-thumbnailer-lib = { path = "cbz-thumbnailer-lib" }
-clap = "4.5.57"
+clap = "4.6.4"
 color-eyre = "0.6.5"
-env_logger = "0.11.8"
-image = "0.25.9"
-log = "0.4.29"
+env_logger = "0.11.11"
+image = "0.25.10"
+log = "0.4.33"
 tap = "1.0.1"
-thiserror = "2.0.18"
-zip = "7.4.0"
-either = "1.15.0"
+thiserror = "2.0.19"
+zip = "8.6.0"
+either = "1.17.0"
 katalog-proxy = { version = "0.1.0", path = "katalog-proxy" }
 katalog-proxy-lib = { version = "0.1.0", path = "katalog-proxy-lib" }
-open = "5.3.3"
-serde = "1.0.228"
-sha2 = "0.10.9"
-toml = "1.0.0"
+open = "5.4.0"
+serde = "1.0.229"
+sha2 = "0.11.0"
+toml = "1.1.4"
 walkdir = "2.5.0"
 hex = "0.4.3"
 thumbnailer-common = { version = "0.1.0", path = "thumbnailer-common" }

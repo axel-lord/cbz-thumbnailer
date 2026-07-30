@@ -47,7 +47,7 @@ pub fn thumbnail<A: Read + Seek>(
         }
     }
 
-    for idx in filenames.into_values() {
+    for (name, idx) in filenames {
         let mut data = match file.by_index(idx) {
             Ok(data) => data,
             Err(err) => {
@@ -76,8 +76,12 @@ pub fn thumbnail<A: Read + Seek>(
             continue;
         };
 
-        if let Ok(img) = ::image::load_from_memory(&buf) {
-            return Ok(img.thumbnail(width, height));
+        match ::image::load_from_memory(&buf) {
+            Ok(img) => return Ok(img.thumbnail(width, height)),
+            Err(err) => {
+
+                ::log::error!("could not load {name:?} from memory\n{err}\n")
+            },
         };
     }
 
